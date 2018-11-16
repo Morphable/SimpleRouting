@@ -27,6 +27,9 @@ class Route
      */
     private $callback;
 
+    /**
+     * @var array
+     */
     private $params = [];
 
     /**
@@ -93,6 +96,9 @@ class Route
         return (bool) preg_match($this->getPattern(), $url);
     }
 
+    /**
+     * @param string request url
+     */
     public function fillParams($url)
     {
         $params = explode('/', trim($url, '/'));

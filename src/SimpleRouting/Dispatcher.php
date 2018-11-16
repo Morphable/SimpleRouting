@@ -9,9 +9,14 @@ class Dispatcher
      */
     private $routes;
 
+    /**
+     * @var array
+     * @return self
+     */
     public function __construct(array $routes = [])
     {
         $this->routes = $routes;
+        return $this;
     }
 
     public function execute()

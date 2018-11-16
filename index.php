@@ -10,8 +10,7 @@ use Morphable\SimpleRouting\Route;
 $router = new Router();
 
 $router->add("user-posts", new Route("GET", "/users/:userId/posts/:postId", function($req, $res) {
-    echo "test";
-    die;
+    $res->sendResponse(json_encode(['a' => 1]), 400);
 }));
 
 $router->execute();
