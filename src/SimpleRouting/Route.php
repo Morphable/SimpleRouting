@@ -89,7 +89,7 @@ class Route
      * @param string request url
      * @return bool
      */
-    public function match($url)
+    public function match(string $url)
     {
         $url = Path::normalize($url) . '/';
         return (bool) preg_match($this->getPattern(), $url);
@@ -99,7 +99,7 @@ class Route
      * @param string request url
      * @return array
      */
-    public function fillParams($url)
+    public function fillParams(string $url)
     {
         $params = explode('/', trim($url, '/'));
 
