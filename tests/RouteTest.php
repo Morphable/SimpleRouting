@@ -25,7 +25,7 @@ class RouteTest extends TestCase
         list($req, $res) = $this->getReqRes();
         $route = new Route("GET", "/test/:param", function () {}, []);
 
-        $should = "/\/test\/(.*?)\//";
+        $should = "/^\/test\/(\d|\w|-|_|)*?\/$/";
         $is = $route->getPattern();
 
         $this->assertSame($is, $should);

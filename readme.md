@@ -1,3 +1,16 @@
+# SimpleRouting
+
+A simple component that takes care of routing.
+
+## Installing
+
+```terminal
+$ composer require morphable/simple-routing
+```
+
+## Usage
+
+```php
 <?php
 
 require __DIR__ . '/vendor/autoload.php';
@@ -15,7 +28,7 @@ $route = new Route('GET', '/user/:user_id/', function ($req, $res) {
     return $res->sendResponse('UserId = ' . $req->getParam('user_id'), 200);
 });
 
-// A route with middleware
+// A POST route with middleware
 $route2 = new Route('POST', '/user/:user_id/update', function ($req, $res) {
     return $res->sendResponse('Welcome user 2!');
 }, [
@@ -36,3 +49,5 @@ try {
     // catch 404
     die('404');
 }
+
+```

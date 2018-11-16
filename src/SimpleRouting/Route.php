@@ -65,21 +65,17 @@ class Route
      */
     public function getPattern()
     {
-        if (is_string($this->pattern)) {
-            return $this->pattern;
-        }
-
-        $pattern = "";
+        $pattern = "^";
         $params = explode('/', trim($this->route, '/'));
         foreach ($params as $index => $param) {
             if ($param[0] == ':') {
-                $pattern .= "\/(.*?)";
+                $pattern .= "\/(\d|\w|-|_|)*?";
                 $this->params[substr($param, 1)] = $index;
             } else {
                 $pattern .= "\/$param";
             }
         }
-        $pattern .= "\/";
+        $pattern .= "\/$";
 
         $this->pattern = "/$pattern/";
         return $this->pattern;
@@ -117,7 +113,7 @@ class Route
      */
     public function execute(Request $req, Response $res)
     {
-        if (!$this->getMethod() === $req->getMethod()) {
+        if ($this->getMethod() !== $req->getMethod()) {
             return;
         }
 
