@@ -3,8 +3,8 @@
 namespace Morphable\SimpleRouting;
 
 /**
- * Group of routes to be called
+ * Sets response parameters
  */
-class Router
+class Response
 {
 }

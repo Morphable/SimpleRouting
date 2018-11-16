@@ -3,8 +3,8 @@
 namespace Morphable\SimpleRouting;
 
 /**
- * Group of routes to be called
+ * Yields normalized request params
  */
-class Router
+class Request
 {
 }
