@@ -61,7 +61,6 @@ class Route
     }
 
     /**
-     * :param<>
      * @return string pattern
      */
     public function getPattern()
@@ -98,6 +97,7 @@ class Route
 
     /**
      * @param string request url
+     * @return array
      */
     public function fillParams($url)
     {

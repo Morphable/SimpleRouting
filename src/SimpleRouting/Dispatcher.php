@@ -19,6 +19,9 @@ class Dispatcher
         return $this;
     }
 
+    /**
+     * @return void
+     */
     public function execute()
     {
         $request = Request::fromGlobals();

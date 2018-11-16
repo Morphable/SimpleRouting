@@ -33,6 +33,9 @@ class SimpleRouting
         unset(self::$routes[$name]);
     }
 
+    /**
+     * @return void
+     */
     public static function execute()
     {
         (new Dispatcher(self::$routes))->execute();
