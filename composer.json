@@ -1,5 +1,6 @@
 {
     "name": "morphable/simple-routing",
+    "description": "A simple routing component",
     "license": "MIT",
     "require": {
         "php" : "~7.0"
