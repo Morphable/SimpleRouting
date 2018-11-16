@@ -30,7 +30,7 @@ class Request
     /**
      * @return self
      */
-    public static function fromGlobals()
+    public static function incomming()
     {
         $req = new Self();
         $req->headers = self::getAllHeaders();

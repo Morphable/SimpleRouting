@@ -24,11 +24,13 @@ class Dispatcher
      */
     public function execute()
     {
-        $request = Request::fromGlobals();
+        $request = Request::incomming();
         $response = new Response();
 
         foreach ($this->routes as $name => $route) {
             $route->execute($request, $response);
         }
+
+        throw new Exception\RouteNotFound();
     }
 }
