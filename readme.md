@@ -51,3 +51,8 @@ try {
 }
 
 ```
+
+## Contributing
+- Follow PSR-2 and the .editorconfig
+- Start namespaces with \Morphable\SimpleCache
+- Make tests
