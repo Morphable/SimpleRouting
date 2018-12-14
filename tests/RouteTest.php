@@ -4,11 +4,11 @@ use \PHPUnit\Framework\TestCase;
 use \Morphable\SimpleRouting\Route;
 use \Morphable\SimpleRouting\Request;
 use \Morphable\SimpleRouting\Response;
-
+use \Morphable\SimpleRouting\Builder;
 
 class RouteTest extends TestCase
 {
-    public function getReqRes()
+    private function getReqRes()
     {
         $req = new Request();
         $req->headers = [];
@@ -37,7 +37,80 @@ class RouteTest extends TestCase
         $is = $route->fillParams($req->getPath());
 
         $this->assertSame($is, $should);
+    }
 
+    public function testBuilder()
+    {
+        list($req, $res) = $this->getReqRes();
+
+        $callback = function () { echo "test"; die; };
+
+        $builder = (new Builder())
+            ->setMethod('GET')
+            ->setRoute('/test/:param')
+            ->setCallback($callback)
+            ->setMiddleware([$callback]);
+
+        $route = $builder->build();
+
+        $should = "/^\/test\/(\d|\w|-|_|)*?\/$/";
+        $is = $route->getPattern();
+
+        $match = $route->match($req->getPath());
+        $this->assertTrue($match);
+
+        $route = Builder::fromArray([
+            'method' => 'GET',
+            'route' => '/test/:param',
+            'callback' => $callback,
+            'middleware' => $callback
+        ]);
+
+        $should = "/^\/test\/(\d|\w|-|_|)*?\/$/";
+        $is = $route->getPattern();
+
+        $match = $route->match($req->getPath());
+        $this->assertTrue($match);
+    }
+
+    public function testCallback()
+    {
+        list($req, $res) = $this->getReqRes();
+
+        $callback = function ($req, $res) { return true; };
+
+        $route = Builder::fromArray([
+            'method' => 'GET',
+            'route' => '/test/:param',
+            'callback' => $callback,
+            'middleware' => $callback
+        ]);
+
+        $should = true;
+        $is = $route->execCallback($req, $res);
+        $this->assertSame($is, $should);
+
+        $testCallback = new TestCallback();
+        $callback = [$testCallback, "callback"];
+
+        $route = Builder::fromArray([
+            'method' => 'GET',
+            'route' => '/test/:param',
+            'callback' => $callback,
+            'middleware' => $callback
+        ]);
+
+        $should = true;
+        $is = $route->execCallback($req, $res);
+        $this->assertSame($is, $should);
+    }
+}
+
+class TestCallback
+{
+    public function callback(Request $req, Response $res)
+    {
+        return true;
     }
 }
 

@@ -40,11 +40,11 @@ class Route
     /**
      * @param string request method
      * @param string route
-     * @param callable callback
+     * @param callable|array|string callback
      * @param array middleware
      * @return self
      */
-    public function __construct(string $method, string $route, callable $callback, array $middleware = [])
+    public function __construct(string $method, string $route, $callback, array $middleware = [])
     {
         $this->method = strtoupper($method);
         $this->route = Path::normalize(strtolower($route));
@@ -128,7 +128,21 @@ class Route
             $mw($req, $res);
         }
 
-        ($this->callback)($req, $res);
+        $this->execCallback($req, $res);
         $res->respond();
+    }
+
+    /**
+     * @param Request req
+     * @param Response res
+     * @return void
+     */
+    public function execCallback(Request $req, Response $res)
+    {
+        if (is_callable($this->callback)) {
+            return ($this->callback)($req, $res);
+        }
+
+        return \call_user_func($this->callback, [$req, $res]);
     }
 }
