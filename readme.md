@@ -52,6 +52,32 @@ try {
 
 ```
 
+## Builders and callbacks
+Better callbacks and builders!
+
+Callback can now be anything that works with ```call_user_func()```
+
+```php
+
+use \Morphable\SimpleRouting\Builder;
+
+$route = (new Builder())
+        ->setMethod('GET')
+        ->setRoute('/user/:userId')
+        ->setCallback($callback)
+        ->setMiddleware([$callback])
+        ->build();
+
+$route = Builder::fromArray([
+    'method' => 'GET',
+    'route' => '/user/:userId',
+    'callback' => $callback,
+    'middleware' => $callback
+]);
+
+```
+
+
 ## Contributing
 - Follow PSR-2 and the .editorconfig
 - Start namespaces with \Morphable\SimpleCache
