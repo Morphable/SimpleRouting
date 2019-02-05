@@ -92,6 +92,8 @@ class Builder
      */
     public static function fromArray(array $data)
     {
+        $data['middleware'] = $data['middleware'] ?? [];
+
         if (!is_array($data['middleware'])) {
             $data['middleware'] = [$data['middleware']];
         }

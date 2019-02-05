@@ -23,7 +23,8 @@ class RouteTest extends TestCase
     public function testGenerate()
     {
         list($req, $res) = $this->getReqRes();
-        $route = new Route("GET", "/test/:param", function () {}, []);
+        $route = new Route("GET", "/test/:param", function () {
+        }, []);
 
         $should = "/^\/test\/(\d|\w|-|_|)*?\/$/";
         $is = $route->getPattern();
@@ -43,7 +44,10 @@ class RouteTest extends TestCase
     {
         list($req, $res) = $this->getReqRes();
 
-        $callback = function () { echo "test"; die; };
+        $callback = function () {
+            echo "test";
+            die;
+        };
 
         $builder = (new Builder())
             ->setMethod('GET')
@@ -77,7 +81,9 @@ class RouteTest extends TestCase
     {
         list($req, $res) = $this->getReqRes();
 
-        $callback = function ($req, $res) { return true; };
+        $callback = function ($req, $res) {
+            return true;
+        };
 
         $route = Builder::fromArray([
             'method' => 'GET',
@@ -113,4 +119,3 @@ class TestCallback
         return true;
     }
 }
-
