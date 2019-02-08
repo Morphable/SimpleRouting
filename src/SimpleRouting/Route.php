@@ -68,7 +68,7 @@ class Route
         $pattern = "^";
         $params = explode('/', trim($this->route, '/'));
         foreach ($params as $index => $param) {
-            if ($param[0] == ':') {
+            if (isset($param[0]) && $param[0] == ':') {
                 $pattern .= "\/(\d|\w|-|_|)*?";
                 $this->params[substr($param, 1)] = $index;
             } else {
@@ -125,7 +125,11 @@ class Route
         $req->setParams($params);
 
         foreach ($this->middleware as $mw) {
-            $mw($req, $res);
+            if (is_callable($mw)) {
+                $mw($req, $res);
+            } elseif (is_array($mw)) {
+                \call_user_func($mw, [$req, $res]);
+            }
         }
 
         $this->execCallback($req, $res);
