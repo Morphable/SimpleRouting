@@ -34,7 +34,7 @@ class Request
     {
         $req = new Self();
         $req->headers = self::getAllHeaders();
-        $req->path = Path::normalize($_SERVER['REQUEST_URI']);
+        $req->path = Path::normalize(explode('?', $_SERVER['REQUEST_URI'])[0]);
         $req->method = strtoupper($_SERVER['REQUEST_METHOD']);
 
         return $req;
