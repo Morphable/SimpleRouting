@@ -80,5 +80,5 @@ $route = Builder::fromArray([
 
 ## Contributing
 - Follow PSR-2 and the .editorconfig
-- Start namespaces with \Morphable\SimpleCache
+- Start namespaces with \Morphable\SimpleRouting
 - Make tests
