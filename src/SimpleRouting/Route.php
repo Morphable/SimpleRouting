@@ -133,7 +133,7 @@ class Route
         }
 
         $this->execCallback($req, $res);
-        $res->respond();
+        $res->sendResponse();
     }
 
     /**
