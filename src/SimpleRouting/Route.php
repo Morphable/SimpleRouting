@@ -69,7 +69,7 @@ class Route
         $params = explode('/', trim($this->route, '/'));
         foreach ($params as $index => $param) {
             if (isset($param[0]) && $param[0] == ':') {
-                $pattern .= "\/(\d|\w|-|_||.|+|=|!)*?";
+                $pattern .= "\/(\d|\w|-|_|\.)*?";
                 $this->params[substr($param, 1)] = $index;
             } else {
                 $pattern .= "\/$param";

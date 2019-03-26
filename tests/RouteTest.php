@@ -26,7 +26,7 @@ class RouteTest extends TestCase
         $route = new Route("GET", "/test/:param", function () {
         }, []);
 
-        $should = "/^\/test\/(\d|\w|-|_|)*?\/$/";
+        $should = "/^\/test\/(\d|\w|-|_|\.)*?\/$/";
         $is = $route->getPattern();
 
         $this->assertSame($is, $should);
@@ -57,7 +57,7 @@ class RouteTest extends TestCase
 
         $route = $builder->build();
 
-        $should = "/^\/test\/(\d|\w|-|_|)*?\/$/";
+        $should = "/^\/test\/(\d|\w|-|_|\.)*?\/$/";
         $is = $route->getPattern();
 
         $match = $route->match($req->getPath());
@@ -70,7 +70,7 @@ class RouteTest extends TestCase
             'middleware' => $callback
         ]);
 
-        $should = "/^\/test\/(\d|\w|-|_|)*?\/$/";
+        $should = "/^\/test\/(\d|\w|-|_|\.)*?\/$/";
         $is = $route->getPattern();
 
         $match = $route->match($req->getPath());
