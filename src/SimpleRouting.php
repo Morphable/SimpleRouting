@@ -16,6 +16,11 @@ class SimpleRouting
     private static $routes = [];
 
     /**
+     * @var mixed
+     */
+    private static $container;
+
+    /**
      * @param string route name
      * @param Route
      * @return void
@@ -23,6 +28,14 @@ class SimpleRouting
     public static function add(string $name, Route $route)
     {
         self::$routes[$name] = $route;
+    }
+
+    /**
+     * @param mixed
+     */
+    public static function setContainer($container)
+    {
+        self::$container = $container;
     }
 
     /**
@@ -38,6 +51,6 @@ class SimpleRouting
      */
     public static function execute()
     {
-        (new Dispatcher(self::$routes))->execute();
+        (new Dispatcher(self::$routes, self::$container))->execute();
     }
 }

@@ -111,7 +111,7 @@ class Route
      * @param Response
      * @return void
      */
-    public function execute(Request $req, Response $res)
+    public function execute(Request $req, Response $res, $container = null)
     {
         if ($this->getMethod() !== $req->getMethod()) {
             return;
@@ -141,12 +141,12 @@ class Route
      * @param Response res
      * @return void
      */
-    public function execCallback(Request $req, Response $res)
+    public function execCallback(Request $req, Response $res, $container = null)
     {
         if (is_callable($this->callback)) {
-            return ($this->callback)($req, $res);
+            return ($this->callback)($req, $res, $container);
         }
 
-        return \call_user_func($this->callback, [$req, $res]);
+        return \call_user_func($this->callback, [$req, $res, $container]);
     }
 }

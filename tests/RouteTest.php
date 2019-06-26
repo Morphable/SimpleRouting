@@ -44,7 +44,7 @@ class RouteTest extends TestCase
     {
         list($req, $res) = $this->getReqRes();
 
-        $callback = function () {
+        $callback = function ($req, $res, $container) {
             echo "test";
             die;
         };
@@ -81,7 +81,7 @@ class RouteTest extends TestCase
     {
         list($req, $res) = $this->getReqRes();
 
-        $callback = function ($req, $res) {
+        $callback = function ($req, $res, $container) {
             return true;
         };
 
@@ -114,7 +114,7 @@ class RouteTest extends TestCase
 
 class TestCallback
 {
-    public function callback(Request $req, Response $res)
+    public function callback(Request $req, Response $res, $container)
     {
         return true;
     }
